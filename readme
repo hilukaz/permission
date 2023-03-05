@@ -1,3 +1,16 @@
+Sistema autenticação. 
+
+feitos:
+criar conta e criptografar senha
+login realizado com sucesso
+autenticação JWT(dependência), criação de token com sessão
+conclusão ao middleware
+sessão finalizada
+
+
+ATENÇÃO: ÚNICA COISA QUE ESTÁ FUNCIONANDO É O USERCONTROLLER E SESSION CONTROLLER, O RESTO ESTÁ PARA FUTUROS ATUALIZAÇÕES
+
+________________________________________________________________________________________________________________________
 npm init -y       
 npm install prisma typescript ts-node @types/node --save-dev
 npx tsc --init    
