@@ -1,0 +1,19 @@
+npm init -y       
+npm install prisma typescript ts-node @types/node --save-dev
+npx tsc --init    
+npx prisma
+yarn add prisma -D
+yarn prisma init
+npx prisma migrate dev
+yarn add @prisma/client
+npm i --save-dev @types/express
+yarn prisma studio
+
+ATUALIZAÇÃO
+npx prisma validate
+prisma format
+
+Dependências OUT
+npm install bcrypt
+npm install jsonwebtoken
+npm install -D @types/jsonwebtoken
