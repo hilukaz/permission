@@ -1,11 +1,13 @@
-import { NextFunction, Request,Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { prismaClient } from '../databases/prismaClient'
 import jwt from 'jsonwebtoken'
 
 export const authMiddleware =async(request:Request,response: Response, next: NextFunction)=>{
 
     type jwtPayload={
-        id:number
+        id:number;
+        permissions:number[];
+        roles:number[];
     }
 
     const{authorization}=request.headers
@@ -19,19 +21,15 @@ export const authMiddleware =async(request:Request,response: Response, next: Nex
     console.log(token)
 
     try {
-        const {id}=jwt.verify(token, process.env.JWT_PASS ?? "") as jwtPayload
-        console.log(id)
+        const {id,permissions,roles}=jwt.verify(token, process.env.JWT_PASS ?? "") as jwtPayload//verifica o token
+        console.log(id,permissions,roles)
 
-        const User=await prismaClient.user.findFirst({
-            where:{
-                id:id
-            }
-        })
-
-        if(!User){
-            return response.json({error:"token inválido"})
+        request.user={//salva dentro da interface esses parâmetros
+            id,
+            permissions,
+            roles,
         }
-
+        
         next()//vai dizer que está tudo certo e vai prosseguir a função
         
     } catch (error) {

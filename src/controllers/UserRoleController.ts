@@ -1,23 +1,23 @@
 import {Request,Response} from 'express'
 import { prismaClient } from '../databases/prismaClient'
 
-export class ProductCategory{
+export class UserRole{
     async criar(request:Request, response:Response){
-        const{id_product,id_category}=request.body;
+        const{id_user,id_role}=request.body;
 
-        const productCategory=await prismaClient.productCategory.create({
+        const userRole=await prismaClient.userRole.create({
             data:{
-                product: { connect: { id:Number(id_product) } },
-                category: { connect: { id: Number(id_category) } },
+                user: { connect: { id:Number(id_user) } },
+                role: { connect: { id: Number(id_role) } },
             }
         })
 
-        return response.json(productCategory)
+        return response.json(userRole)
     }
     async consultar(request:Request, response:Response){
         try {
-            const productCategory = await prismaClient.productCategory.findMany({})
-            return response.json(productCategory)
+            const userRole = await prismaClient.userRole.findMany({})
+            return response.json(userRole)
             
         } catch (error) {
             return response.json(error)
@@ -27,35 +27,35 @@ export class ProductCategory{
 
     async atualizar(request:Request, response:Response){
         const{id}=request.params
-        const{id_category,id_product}=request.body;
+        const{id_role,id_user}=request.body;
 
-        let productCategory=await prismaClient.productCategory.findFirst({
+        let userRole=await prismaClient.userRole.findFirst({
             where:{
                 id:Number(id)
             }
         })
-        if(!productCategory){
+        if(!userRole){
             return response.json({
                 error:"não existe o produto"
             })
         }
 
-        productCategory=await prismaClient.productCategory.update({
+        userRole=await prismaClient.userRole.update({
             where:{
                 id:Number(id)
             },
             data:{
-                product: { connect: { id:Number(id_product) } },
-                category: { connect: { id: Number(id_category) } },
+                user: { connect: { id:Number(id_user) } },
+                role: { connect: { id: Number(id_role) } },
             }
         })
 
-        return response.json(productCategory)
+        return response.json(userRole)
     }    
 
     async deletar(request:Request, response:Response){
         const {id}=request.params
-        const productCategory = await prismaClient.productCategory.delete({
+        const userRole = await prismaClient.userRole.delete({
             where: {
                id:Number(id)
             },
@@ -66,18 +66,18 @@ export class ProductCategory{
     async pesquisar(request:Request, response:Response){
         const{id}=request.params;
 
-        const productCategory=await prismaClient.productCategory.findFirst({
+        const userRole=await prismaClient.userRole.findFirst({
             where:{
                 id:Number(id)
             },
         })
 
-        if(!productCategory){
+        if(!userRole){
             return response.json({
                 error:"não existe o produto"
             })
         }
 
-        return response.json(productCategory)
+        return response.json(userRole)
     }        
 }

@@ -17,10 +17,10 @@ model User {
   email    String
   company  String
   //photo  Photo[]
-  
 
-  created_at DateTime   @default(now())
-  UserRole   UserRole[]
+  created_at     DateTime         @default(now())
+  UserRole       UserRole[]
+  UserPermission UserPermission[]
 
   @@map("users")
 }
@@ -53,6 +53,7 @@ model Permission {
 
   created_at     DateTime         @default(now())
   RolePermission RolePermission[]
+  UserPermission UserPermission[]
 
   @@map("permissions")
 }
@@ -66,6 +67,17 @@ model RolePermission {
   role    Role @relation(fields: [id_role], references: [id], onDelete: Cascade)
 
   @@map("role_permission")
+}
+
+model UserPermission {
+  id      Int  @id @default(autoincrement())
+  id_user Int
+  user    User @relation(fields: [id_user], references: [id], onDelete: Cascade)
+
+  id_permission Int
+  permission        Permission @relation(fields: [id_permission], references: [id], onDelete: Cascade)
+
+  @@map("user_permission")
 }
 
 // type Photo {

@@ -36,7 +36,13 @@ export class UserController{
     
     async consultar(request:Request, response:Response){
         try {
-            const User = await prismaClient.user.findMany({})
+            const User = await prismaClient.user.findMany({
+                include:{
+                    UserPermission:{},
+                    UserRole:{},
+                },
+                
+            })
             return response.json(User)
             
         } catch (error) {
@@ -82,17 +88,17 @@ export class UserController{
           }) 
         response.json("registro excluído")
     }
-
+*/
     async pesquisar(request:Request, response:Response){
         const{id}=request.params;
 
         const User=await prismaClient.user.findFirst({
             where:{
                 id:Number(id)
-            },
+            }/*,
             include:{
                 UserCategory:true,
-            }
+            }*/
         })
 
         if(!User){
@@ -102,5 +108,5 @@ export class UserController{
         }
 
         return response.json(User)
-    }    */
+    }    
 }

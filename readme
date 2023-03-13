@@ -1,3 +1,4 @@
+yarn
 npm init -y       
 npm install prisma typescript ts-node @types/node --save-dev
 npx tsc --init    

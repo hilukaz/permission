@@ -1,23 +1,24 @@
 import {Request,Response} from 'express'
 import { prismaClient } from '../databases/prismaClient'
 
-export class CategoryController{
+export class RoleController{
     async criar(request:Request, response:Response){
-        const{name}=request.body;
+        const{name, description}=request.body;
 
-        const category=await prismaClient.category.create({
+        const role=await prismaClient.role.create({
             data:{
-                name
+                name, 
+                description
             }
         })
 
-        return response.json(category)
+        return response.json(role)
     }
 
     async consultar(request:Request, response:Response){
         try {
-            const category = await prismaClient.category.findMany({})
-            return response.json(category)
+            const role = await prismaClient.role.findMany({})
+            return response.json(role)
             
         } catch (error) {
             return response.json(error)
@@ -29,18 +30,18 @@ export class CategoryController{
         const{id}=request.params
         const{name}=request.body;
 
-        let category=await prismaClient.category.findFirst({
+        let role=await prismaClient.role.findFirst({
             where:{
                 id:Number(id)
             }
         })
-        if(!category){
+        if(!role){
             return response.json({
                 error:"não existe o produto"
             })
         }
 
-        category=await prismaClient.category.update({
+        role=await prismaClient.role.update({
             where:{
                 id:Number(id)
             },
@@ -49,12 +50,12 @@ export class CategoryController{
             }
         })
 
-        return response.json(category)
+        return response.json(role)
     }    
 
     async deletar(request:Request, response:Response){
         const {id}=request.params
-        const category = await prismaClient.category.delete({
+        const role = await prismaClient.role.delete({
             where: {
                id:Number(id)
             },
@@ -66,18 +67,18 @@ export class CategoryController{
     async pesquisar(request:Request, response:Response){
         const{id}=request.params;
 
-        const category=await prismaClient.category.findFirst({
+        const role=await prismaClient.role.findFirst({
             where:{
                 id:Number(id)
             }
         })
 
-        if(!category){
+        if(!role){
             return response.json({
                 error:"não existe o produto"
             })
         }
 
-        return response.json(category)
+        return response.json(role)
     }    
 }
