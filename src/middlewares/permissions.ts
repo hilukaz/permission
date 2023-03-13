@@ -59,7 +59,6 @@ export function is (rolesRoutes:number[]){
 
     
     const existRoles=rolesRoutes.every(item=>request.user.roles?.includes(item))//compara array
-
     if (!existRoles) {
       return(response.status(403).json({
         message:"Usuário não tem role"

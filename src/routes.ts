@@ -21,10 +21,10 @@ router.post("/user",userController.criar);
 router.post("/login",sessionController.login);
 router.get("/user",authMiddleware, userController.consultar);
 router.post("/acesso",authMiddleware,userAccess.criar)
-//router.put("/user/:id",authMiddleware,is([RolesPrivate.admin]),userController.atualizar);
+router.put("/user/:id",authMiddleware,is([RolesPrivate.admin]),userController.atualizar);
 // router.delete("/user/:id",userController.deletar);
-// router.get("/user/:id", authMiddleware,can([PermissionsPrivate.usuarioPesquisar]),userController.pesquisar);
-router.get("/user/:id", authMiddleware,is([RolesPrivate.admin]),userController.pesquisar)
+router.get("/user/:id", authMiddleware,can([PermissionsPrivate.usuarioPesquisar]),userController.pesquisar);
+//router.get("/user/:id", authMiddleware,is([RolesPrivate.admin]),userController.pesquisar)
 
 // router.post("/role",roleController.criar);
 router.get("/role",roleController.consultar);
